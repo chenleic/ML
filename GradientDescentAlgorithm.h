@@ -17,7 +17,9 @@
 		b = b - k * d(J(a,b))/d(b)   d:derivative
 ***********************************************/
 
-void GradientDescForLinear(double& a, double& b, int m, int k, double* dataSet)   //dataSet[] = {x1,y1,x2,y2.....,xm,ym}
+#include<cmath>
+
+void GradientDescForLinear(double& a, double& b, int m, double k, double* dataSet)   //dataSet[] = {x1,y1,x2,y2.....,xm,ym}
 {
 	
 	if (dataSet == NULL || m == 0) return;
@@ -33,12 +35,12 @@ void GradientDescForLinear(double& a, double& b, int m, int k, double* dataSet) 
 		{
 			double h = fTempA+fTempB*dataSet[i] - dataSet[i+1]; 
 			derivativeSumA = derivativeSumA + h;
-			derivativeSumB = derivativeSumB + h*dataSet[i]
+			derivativeSumB = derivativeSumB + h*dataSet[i];
 		}
 		double derivativeA = derivativeSumA/m;
 		double derivativeB = derivativeSumB/m;
 		
-		if (derivativeA == 0 && derivativeB == 0) break;
+		if (fabs(derivativeA) < 0.0000001 && fabs(derivativeB) < 0.0000001) break;
 		
 		fTempA = fTempA - k*derivativeA;
 		fTempB = fTempB - k*derivativeB;
